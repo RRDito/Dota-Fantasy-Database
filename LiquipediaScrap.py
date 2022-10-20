@@ -12,7 +12,7 @@ def Run(path):
  
  UserAgent = {
     'User-Agent': 'Fantasy Dota 2 Database Manager',
-    'From': 'rromanmartin@gmail.com'
+    'From': 'https://github.com/RRDito/Dota-Fantasy-Database'
  }
  
  #Links from liquipedia are in this file
