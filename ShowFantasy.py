@@ -1,6 +1,7 @@
 import tkinter as tk
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def ShowFantasyRun(root,fpath):
   root2= tk.Toplevel(root)
@@ -41,6 +42,11 @@ def ShowFantasyRun(root,fpath):
   LeagueList = DatabaseDF['Liquipedia'].values.tolist()
   LeagueList = list(set(LeagueList))
   LeagueList.append("Any League")
+
+  PlayerA = tk.StringVar()
+  PlayerA.set("")
+  PlayerB = tk.StringVar()
+  PlayerB.set("")
 
   #Colors Theme2
   bgc = '#211316'     #background color for windows
@@ -84,110 +90,42 @@ def ShowFantasyRun(root,fpath):
     canvas1.create_window(150, 150, window=dropdown1)
     pass
 
-
+  
   def ShowPlayers(event):
-    #print(TeamVar.get())
+    columns = ["p1Name", "p2Name", "p3Name", "p4Name", "p5Name"] 
+    PlayerList = []
+    for column in columns:
+        p = DatabaseDF.loc[DatabaseDF.RadiantTeamName == TeamVar.get(), column]
+        PlayerList += p.values.tolist()
+    columns = ["p6Name", "p7Name", "p8Name", "p9Name", "p10Name"]
+    for column in columns:    
+        p = DatabaseDF.loc[DatabaseDF.DireTeamName == TeamVar.get(), column]
+        PlayerList += p.values.tolist()
 
-    p = DatabaseDF.loc[DatabaseDF.RadiantTeamName == TeamVar.get(), "p1Name"]
-    PlayerList = p.values.tolist()    
-    p = DatabaseDF.loc[DatabaseDF.RadiantTeamName == TeamVar.get(), "p2Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.RadiantTeamName == TeamVar.get(), "p3Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.RadiantTeamName == TeamVar.get(), "p4Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.RadiantTeamName == TeamVar.get(), "p5Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.DireTeamName == TeamVar.get(), "p6Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.DireTeamName == TeamVar.get(), "p7Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.DireTeamName == TeamVar.get(), "p8Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.DireTeamName == TeamVar.get(), "p9Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    p = DatabaseDF.loc[DatabaseDF.DireTeamName == TeamVar.get(), "p10Name"]
-    p2 = p.values.tolist()
-    for p3 in p2:
-        PlayerList.append(p3)
-    
     PlayerList = list(set(PlayerList))
 
     dropdown2 = tk.OptionMenu(root2, PlayerVar, *PlayerList, command=ShowMatches)
     dropdown2.config(font=('helvetica', 16), bg = bgcEntry, fg = fgcEntry, activebackground=bgcEntryA, activeforeground=fgcEntryA, highlightbackground=hbgc)
     canvas1.create_window(500, 150, window=dropdown2)
     pass
+  
 
   def ShowMatches(event):
-    p = PlayerVar.get()
-    l = LeagueVar.get()
+    columns = ["p1Name", "p2Name", "p3Name", "p4Name", "p5Name", "p6Name", "p7Name", "p8Name", "p9Name", "p10Name"]
+    MatchList = []
+    for column in columns:
+        m = DatabaseDF.loc[((DatabaseDF[column] == PlayerVar.get())&(DatabaseDF.Liquipedia == LeagueVar.get())),"MatchID"]
+        MatchList += m.values.tolist()
 
-    m = DatabaseDF.loc[((DatabaseDF.p1Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    MatchList = m.values.tolist()    
-    m = DatabaseDF.loc[((DatabaseDF.p2Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p3Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p4Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p5Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p6Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p7Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p8Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p9Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    m = DatabaseDF.loc[((DatabaseDF.p10Name == p)&(DatabaseDF.Liquipedia == l)),"MatchID"]
-    m2 = m.values.tolist()
-    for m3 in m2:
-        MatchList.append(m3)
-    
     MatchList = list(set(MatchList))
 
     dropdown3 = tk.OptionMenu(root2, MatchVar, *MatchList, command=ShowFantasy)
     dropdown3.config(font=('helvetica', 16), bg = bgcEntry, fg = fgcEntry, activebackground=bgcEntryA, activeforeground=fgcEntryA, highlightbackground=hbgc)
     canvas1.create_window(850, 150, window=dropdown3)
     pass
-
-  def CalculateFantasy():
-    
-    mID = int(MatchVar.get())
-    
+  
+  
+  def FindNumberAndName(mID):
     #Find the number corresponding to that player for that match in Database
     i = 1
     while i < 11:
@@ -197,7 +135,16 @@ def ShowFantasyRun(root,fpath):
             number = i
             break
         else:
-            i = i+1   
+            i = i+1
+
+    return name, number        
+  
+  
+  def CalculateFantasy():
+    
+    mID = int(MatchVar.get())
+
+    name, number = FindNumberAndName(mID)      
     
     VarName = name.values[0]
     v0.set(VarName)
@@ -318,6 +265,8 @@ def ShowFantasyRun(root,fpath):
     v16.set(VarFantasyTotal)    
   
   def FantasyA():
+    PlayerA.set(PlayerVar.get())
+
     CalculateFantasy()
     
     labelA0 = tk.Label(root2, text=v0.get())
@@ -390,6 +339,8 @@ def ShowFantasyRun(root,fpath):
         
 
   def FantasyB():
+    PlayerB.set(PlayerVar.get())
+    
     CalculateFantasy()  
     
     labelB0 = tk.Label(root2, text=v0.get())
@@ -460,6 +411,100 @@ def ShowFantasyRun(root,fpath):
     labelB16.config(font=('helvetica', 14), bg = bgc, fg = fgc)
     canvas1.create_window(750, 720, width=400, window=labelB16) 
 
+   
+  
+  #Function that creates the DataFrame that is going to be used for graphs
+  def CreateGraphDF(A, d):
+    matches = d.loc[(d["p1Name"]==A)|(d["p2Name"]==A)|(d["p3Name"]==A)|(d["p4Name"]==A)|(d["p5Name"]==A)|(d["p6Name"]==A)|(d["p7Name"]==A)|(d["p8Name"]==A)|(d["p9Name"]==A)|(d["p10Name"]==A), "MatchID"]
+
+    df = pd.DataFrame(columns=["time", "points", "won"])
+
+    #Find the number corresponding to that player for that match in Database     
+    for m in matches.values.tolist():
+        i = 1
+        while i < 11:
+            ColPlayerName = "p"+str(i)+"Name"
+            name = DatabaseDF.loc[DatabaseDF.MatchID == m, ColPlayerName]
+            if name.values[0] == A:
+                number = i
+                break
+            else:
+                i = i+1
+
+        time = DatabaseDF.loc[DatabaseDF.MatchID == m, "Duration"]
+        time = time.values[0]        
+        ColPlayerFantasy = "p"+str(number)+"FantasyTotal"
+        points = DatabaseDF.loc[DatabaseDF.MatchID == m, ColPlayerFantasy]
+        points = points.values[0]
+
+        Col_Name = "p"+str(number)+"Won"
+        IsWon = DatabaseDF.loc[DatabaseDF.MatchID == m, Col_Name]
+        isWon = IsWon.values[0]    
+        # if isWon == 1: MatchResult = "Win" else: MatchResult = "Loss"
+
+        df = df.append({"time": time, "points": points, "won": isWon}, ignore_index=True)
+
+    return df    
+
+
+  #Function that draws the graph 
+  def ShowGraph():
+    A = PlayerA.get()    
+    B = PlayerB.get()    
+    d = DatabaseDF
+
+    #Dataframe for PlayerA and PlayerB
+    dfA = CreateGraphDF(A, d)      
+    dfB = CreateGraphDF(B, d)    
+    
+    # Sort the Dataframes
+    dfA = dfA.sort_values("time")
+    dfB = dfB.sort_values("time")
+
+    #create sub-dataframes for win lose situation
+    dfAwin = dfA[dfA["won"] == 1]
+    dfAlose = dfA[dfA["won"] == 0]
+    dfBwin = dfB[dfB["won"] == 1]
+    dfBlose = dfB[dfB["won"] == 0]
+
+    # Create a figure and two subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
+
+    # Calculate the rolling mean with a window of 3
+    dfAwin['points_rolling_mean'] = dfAwin['points'].rolling(window=5).mean()
+    dfAlose['points_rolling_mean'] = dfAlose['points'].rolling(window=5).mean()
+    dfBwin['points_rolling_mean'] = dfBwin['points'].rolling(window=5).mean()
+    dfBlose['points_rolling_mean'] = dfBlose['points'].rolling(window=5).mean()
+    
+    # Plot the first line on the left subplot
+    ax1.plot(dfAwin["time"], dfAwin["points_rolling_mean"], label=A)
+    ax1.scatter(dfAwin["time"], dfAwin["points"], label=A)
+    ax1.plot(dfBwin["time"], dfBwin["points_rolling_mean"], label=B)
+    ax1.scatter(dfBwin["time"], dfBwin["points"], label=B)
+
+    ax1.set_xlabel("Match Length")
+    ax1.set_ylabel("Fantasy Points")
+    ax1.set_title("WINS")
+    ax1.legend()
+
+    # Plot the second line on the right subplot
+    ax2.plot(dfAlose["time"], dfAlose["points_rolling_mean"], label=A)
+    ax2.scatter(dfAlose["time"], dfAlose["points"], label=A)
+    ax2.plot(dfBlose["time"], dfBlose["points_rolling_mean"], label=B)
+    ax2.scatter(dfBlose["time"], dfBlose["points"], label=B)
+
+    ax2.set_xlabel("Match Length")
+    ax2.set_ylabel("Fantasy Points")
+    ax2.set_title("LOSES")
+    ax2.legend()
+
+    # Adjust spacing between the subplots
+    fig.tight_layout()
+
+    # Show the figure
+    plt.show()
+
+
   
   def ShowFantasy(event):
     
@@ -470,6 +515,10 @@ def ShowFantasyRun(root,fpath):
     buttonB = tk.Button(root2, text='B', command=FantasyB)
     buttonB.config(bg= bgcEntry, fg= fgcEntry, font=('helvetica', 18, 'bold'), activebackground=bgcEntryA, activeforeground=fgcEntryA)
     canvas1.create_window(750, 200, window=buttonB)
+
+    buttonB = tk.Button(root2, text='Graph', command=ShowGraph)
+    buttonB.config(bg= bgcEntry, fg= fgcEntry, font=('helvetica', 18, 'bold'), activebackground=bgcEntryA, activeforeground=fgcEntryA)
+    canvas1.create_window(500, 750, window=buttonB)
     pass  
   
   

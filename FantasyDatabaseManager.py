@@ -232,7 +232,7 @@ def FantasyRun():
 canvas1 = tk.Canvas(root, bg = bgc , width = 800, height = 600)
 canvas1.pack()
 
-version = tk.Label(root, text='version 1.0')
+version = tk.Label(root, text='version 1.1')
 version.config(font=('helvetica', 8), bg = bgc, fg = fgcTitle)
 canvas1.create_window(40, 15, window=version)
 

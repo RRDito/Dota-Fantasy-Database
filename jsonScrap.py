@@ -180,6 +180,11 @@ def Run(path):
 
         Col_pWon = "p"+str(i)+"Won"
         DatabaseDF.loc[DatabaseDF.MatchID == mID, Col_pWon] = playerData["win"]
+
+        Col_pFantasyTotal = "p"+str(i)+"FantasyTotal"        
+        FantasyTotalA=FantasyKills+FantasyDeaths+FantasyGPM+FantasyCS+playerData["tower_kills"]+playerData["roshan_kills"]
+        FantasyTotalB=Teamfight+FantasyObsPlaced+FantasyCampsStacked+FantasyRunes+FantasyFirstBlood+FantasyStuns
+        DatabaseDF.loc[DatabaseDF.MatchID == mID, Col_pFantasyTotal] = FantasyTotalA + FantasyTotalB
        
 
  DatabaseDF.to_excel(DBPath, index = False)
