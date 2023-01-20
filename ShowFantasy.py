@@ -478,9 +478,9 @@ def ShowFantasyRun(root,fpath):
     
     # Plot the first line on the left subplot
     ax1.plot(dfAwin["time"], dfAwin["points_rolling_mean"], label=A)
-    ax1.scatter(dfAwin["time"], dfAwin["points"], label=A)
+    # ax1.scatter(dfAwin["time"], dfAwin["points"], label=A)
     ax1.plot(dfBwin["time"], dfBwin["points_rolling_mean"], label=B)
-    ax1.scatter(dfBwin["time"], dfBwin["points"], label=B)
+    # ax1.scatter(dfBwin["time"], dfBwin["points"], label=B)
 
     ax1.set_xlabel("Match Length")
     ax1.set_ylabel("Fantasy Points")
@@ -489,9 +489,9 @@ def ShowFantasyRun(root,fpath):
 
     # Plot the second line on the right subplot
     ax2.plot(dfAlose["time"], dfAlose["points_rolling_mean"], label=A)
-    ax2.scatter(dfAlose["time"], dfAlose["points"], label=A)
+    # ax2.scatter(dfAlose["time"], dfAlose["points"], label=A)
     ax2.plot(dfBlose["time"], dfBlose["points_rolling_mean"], label=B)
-    ax2.scatter(dfBlose["time"], dfBlose["points"], label=B)
+    # ax2.scatter(dfBlose["time"], dfBlose["points"], label=B)
 
     ax2.set_xlabel("Match Length")
     ax2.set_ylabel("Fantasy Points")
