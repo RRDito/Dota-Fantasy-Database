@@ -1,7 +1,8 @@
 import os
 import tkinter as tk
-import ShowFantasy as sf
+import CheckPerformances as cp
 import FantasyDatabaseManager as fdb
+import pandas as pd
 
 root= tk.Tk()
 
@@ -18,6 +19,9 @@ StoredPath = SPFile.read()
 SPFile.close()
     
 print("Stored Path:",StoredPath)
+
+DBPath = StoredPath+os.sep+"Database.xlsx"
+DatabaseDF = pd.read_excel (DBPath)
 
 #Colors Theme1
 bgc = 'SlateBlue4'     #background color for windows
@@ -38,11 +42,10 @@ fgcSelectA = 'white smoke'
 ############DEFINED FUNCTIONS########################################
 
 def FantasyRun():  
-  sf.ShowFantasyRun(root, StoredPath)
+  cp.CheckPerformancesRun(root, StoredPath)
   
 def DBManagerRun():  
   fdb.DBManagerRun(root)
-       
 
 #######################################################
 #################GUI###################################
@@ -58,10 +61,10 @@ title0 = tk.Label(root, text='DOTA 2 FANTASY DATABASE')
 title0.config(font=('helvetica', 34, 'bold'), bg = bgc, fg = fgcTitle)
 canvas1.create_window(400, 50, window=title0)
 
-buttonFantasy = tk.Button(text='Check Fantasy', command=FantasyRun, bg= fgcButton, fg= bgcButton, font=('helvetica', 18, 'bold'), activebackground=fgcButtonA, activeforeground=bgcButtonA)
-canvas1.create_window(600, 250, window=buttonFantasy)
-
 buttonDBManager = tk.Button(text='Manage Database', command=DBManagerRun, bg= fgcButton, fg= bgcButton, font=('helvetica', 18, 'bold'), activebackground=fgcButtonA, activeforeground=bgcButtonA)
-canvas1.create_window(600, 400, window=buttonDBManager)
+canvas1.create_window(400, 200, window=buttonDBManager)
+
+buttonFantasy = tk.Button(text='Compare 2 Performances', command=FantasyRun, bg= bgcButton, fg= fgcButton, font=('helvetica', 18, 'bold'), activebackground=bgcButtonA, activeforeground=fgcButtonA)
+canvas1.create_window(400, 400, window=buttonFantasy)
 
 root.mainloop()
