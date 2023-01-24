@@ -12,6 +12,7 @@ Uses jsonScrap.py , LiquipediaScrap.py , OpenDotaHeroes.py and OpenDotaScrap.py
 
 - ### Check Performances:
 Allows to check the Fantasy Points performance of a player in a specific match. Can show 2 performances at the same time for comparative purposes. Can also show the Total Fantasy Points vs Match Duration graphs for these 2 players.
+
 <img src="https://user-images.githubusercontent.com/100057221/212465994-123ab32d-da9f-4bf8-aa92-71f3cd0377e6.png" width="600">
 
 
