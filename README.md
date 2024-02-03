@@ -5,7 +5,7 @@ A Database Manager of Fantasy points from Dota 2 pro matches featured in Liquipe
 This script is the starting point of the app when built. From here you can access the Database Manager window and the Check Performances window.
 
 - ### Database Manager:
-Scraps information from Liquipedia and OpenDota pages
+Scraps information from Liquipedia and OpenDota pages.
 Insert a Liquipedia Link of a Dota 2 tournament and it will extract Match IDs for matches in that page. Information of these matches is requested from OpenDota and stored into json files. A Database is created with data from these files that are relevant to calculate Fantasy Points.
 Uses jsonScrap.py , LiquipediaScrap.py , OpenDotaHeroes.py and OpenDotaScrap.py
 
